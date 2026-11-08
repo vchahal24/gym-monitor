@@ -1,0 +1,8 @@
+build/
+.pio/
+*.bin
+*.elf
+*.map
+*.swp
+*.swo
+.env
