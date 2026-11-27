@@ -1,0 +1,74 @@
+@import "tailwindcss";
+@import "@fontsource/bebas-neue/400.css";
+@import "@fontsource-variable/inter";
+
+/* Brand tokens from the presentation. */
+@theme {
+  --font-display: "Bebas Neue", "Oswald", "Arial Narrow", sans-serif;
+  --font-sans: "Inter Variable", "Inter", "Roboto", system-ui, sans-serif;
+
+  --color-forest: #0b4a2e;
+  --color-forest-mid: #1e7a4c;
+  --color-mustard: #e8a33d;
+  --color-brown: #5a2e1f;
+  --color-cream: #fbf7ef;
+
+  --color-heat-0: #e3f1e6;
+  --color-heat-1: #b9dcc2;
+  --color-heat-2: #86c09a;
+  --color-heat-3: #4f9e6d;
+  --color-heat-4: #1e7a4c;
+  --color-heat-5: #0b4a2e;
+
+  --color-available: #2fa84f;
+  --color-active: #d64545;
+  --color-resting: #f2c94c;
+  --color-maintenance: #f07b1f;
+}
+
+html {
+  background: var(--color-cream);
+  color: #1f2a24;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Floor map ------------------------------------------------------- */
+@keyframes machine-pulse {
+  0% { transform: scale(1); opacity: 0.75; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+.machine-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: machine-pulse 1.6s ease-out infinite;
+}
+.machine { cursor: pointer; outline: none; }
+.machine .machine-focus { opacity: 0; }
+.machine:focus-visible .machine-focus { opacity: 1; }
+.machine:hover .machine-body { filter: brightness(1.06); }
+
+/* Status colours fade instead of snapping (Round 3: calmer live view). */
+.state-fade {
+  transition: background-color 400ms ease, color 400ms ease, fill 400ms ease, stroke 400ms ease;
+}
+
+/* New feed items slide down gently, then the highlight fades. */
+@keyframes feed-slide {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes feed-highlight {
+  from { background-color: rgb(232 163 61 / 0.28); }
+  to { background-color: transparent; }
+}
+.feed-enter { animation: feed-slide 450ms ease-out, feed-highlight 2.4s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .machine-pulse, .feed-enter { animation: none; }
+  .machine-pulse { opacity: 0; }
+  .state-fade { transition: none; }
+}

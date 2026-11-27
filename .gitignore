@@ -6,3 +6,9 @@ build/
 *.swp
 *.swo
 .env
+
+bridge/data/
+__pycache__/
+.venv/
+.pytest_cache/
+.pio/
